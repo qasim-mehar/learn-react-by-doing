@@ -12,18 +12,18 @@ function App() {
   // let step=1;
   function stepNext() {
     if(step<3){
-      setStep(step+1);
+      setStep((curStep)=>curStep+1);
     }
 
   }
   function stepPrevious() {
     if(step>1){
-      setStep(step-1);
+      setStep((curStep)=>curStep-1);
     }
   }
   return(
     <>
-      <button onClick={()=>setOpen(!isOpen)} className='close'>&times;</button>
+      <button onClick={()=>setOpen((open)=>!open)} className='close'>&times;</button>
     {isOpen && (
     <div className='steps'>
       <div className="numbers">
@@ -32,7 +32,7 @@ function App() {
        <div className={`${step >= 3 ?"active":""}`}>3</div>
       </div>
       <p className="message">
-         Step{step}:{messages[step-1]}
+         Step {step} : {messages[step-1]}
       </p>
       <div className="buttons">
       <button style={{backgroundColor:"#7950f2", color:"#fff"}} 
