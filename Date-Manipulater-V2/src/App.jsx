@@ -54,6 +54,10 @@ function App() {
         <button onClick={countDown}>-</button>
       </div>
       <div className="message">{message}</div>
+      <button onClick={()=>{
+        setCount(0);
+        setRange(1);
+      }}>Reset</button>
     </div>
   );
 }
