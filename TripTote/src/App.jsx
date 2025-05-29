@@ -24,7 +24,7 @@ function App(){
            <Logo/>
           <Form onAddItem={handleItems}/>
           <PackingList items={items}/>
-          <Stats />
+          <Stats items={items} />
  </>
         
  )
@@ -100,11 +100,15 @@ return(
   </li>
 )
 }
-function Stats(props){
-  // console.log(props)
+function Stats({items}){
+  console.log(items.id);
+  // const [noOfItems, setNoOfItems]=useState(0)
+  // const [packedItems, setPackedItems]=useState(0);
+  // setNoOfItems(items.length+1);
+  // setPackedItems((items)=>console.log(items) );
   return(
     <footer>
-      {`you have ${props.items} items and You already packed X`}
+      {`you have  items and You already packed  `}
     </footer>
   )
 }
