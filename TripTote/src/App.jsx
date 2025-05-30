@@ -18,6 +18,9 @@ function App(){
   function handleItems(newItem) {
     setItems((items)=>[...items,newItem])
   }
+  function handleDeleteItem(id){
+    setItems((items)=>items.filter(item=>item.id!==id));
+  }
  
  return (
  <>
