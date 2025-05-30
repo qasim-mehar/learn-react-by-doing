@@ -104,9 +104,9 @@ function List({item, onDeleteItem, onPackedItem}){ //we simply accepting a an it
   return(
   <li key={id}  >
       <button onClick={()=>onDeleteItem(id)}>❌</button>
-      <span style={packed?{}:{textDecoration: "line-through"}}>{quantity} <strong>{description}</strong></span>
+      <span style={packed?{textDecoration: "line-through"}:{}}>{quantity} <strong>{description}</strong></span>
        
-      <input value={item.packed} onChange={()=>handlePackedItem(id)} type="checkbox" name="check" id={id} />
+      <input checked={packed} onChange={()=>handlePackedItem(id)} type="checkbox"   />
   </li>
 )
 }
