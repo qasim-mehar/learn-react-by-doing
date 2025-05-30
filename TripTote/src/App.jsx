@@ -26,7 +26,7 @@ function App(){
  <>
            <Logo/>
           <Form onAddItem={handleItems}/>
-          <PackingList items={items}/>
+          <PackingList items={items} onDeleteItem={handleDeleteItem}/>
           <Stats items={items} />
  </>
         
@@ -54,7 +54,7 @@ function Form({onAddItem}) {
      packed:false
     }
     onAddItem(newItem);
-    console.log(newItem);
+    // console.log(newItem);
   }
 
   return (
@@ -81,30 +81,32 @@ function Form({onAddItem}) {
   );
 }
 
-function PackingList({items}){
+function PackingList({items,onDeleteItem}){
+  
   return(
   
        <ul className="list">
-        {items.map(item=> <List key={item.id} item={item} />)}
+        {items.map(item=> <List key={item.id} item={item} onDeleteItem={onDeleteItem} />)}
         {/* {initialItems.map(item=> console.log(item))} */}
        </ul>
     
   )
 }
 
-function List({item}){ //we simply accepting a an item object inside an object so we simply  destructured here in the bracket notation
+function List({item, onDeleteItem}){ //we simply accepting a an item object inside an object so we simply  destructured here in the bracket notation
   const{id,description,quantity,packed}=item; //we further destructured it so we can simply use values cleanly.
-return(
+  
+  return(
   <li   >
-      <button>❌</button>
+      <button onClick={()=>onDeleteItem(item.id)}>❌</button>
       <span style={packed?{textDecoration: "line-through"}:{}}>{quantity} <strong>{description}</strong></span>
        
       <input type="checkbox" name="check" id={id} />
   </li>
 )
 }
-function Stats({items}){
-  console.log(items.id);
+function Stats(){
+  // console.log(items.id);
   // const [noOfItems, setNoOfItems]=useState(0)
   // const [packedItems, setPackedItems]=useState(0);
   // setNoOfItems(items.length+1);
