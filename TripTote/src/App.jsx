@@ -5,15 +5,15 @@ import { useState } from 'react';
 import './index.css'
 
 
-// const initialItems = [
-//   { id: 1, description: "Passports", quantity: 2, packed: false },
-//   { id: 2, description: "Socks", quantity: 12, packed: true },
-//   { id: 3, description: "Charger", quantity: 2, packed: false }
-// ];
+const initialItems = [
+  { id: 1, description: "Passports", quantity: 2, packed: false },
+  { id: 2, description: "Socks", quantity: 12, packed: true },
+  { id: 3, description: "Charger", quantity: 2, packed: false }
+];
 
 
 function App(){
-  const [items, setItems]=useState([]);
+  const [items, setItems]=useState(initialItems);
 
   function handleItems(newItem) {
     setItems((items)=>[...items,newItem])
@@ -21,12 +21,15 @@ function App(){
   function handleDeleteItem(id){
     setItems((items)=>items.filter(item=>item.id!==id));
   }
+  function handlePackedItem(id){
+   setItems((items)=>items.map((item)=>item.id==id?{...item,packed: !item.packed}:item));
+  }
  
  return (
  <>
            <Logo/>
           <Form onAddItem={handleItems}/>
-          <PackingList items={items} onDeleteItem={handleDeleteItem}/>
+          <PackingList items={items} onDeleteItem={handleDeleteItem} onPackedItem={handlePackedItem}/>
           <Stats items={items} />
  </>
         
@@ -81,27 +84,29 @@ function Form({onAddItem}) {
   );
 }
 
-function PackingList({items,onDeleteItem}){
+function PackingList({items,onDeleteItem,onPackedItem}){
   
   return(
   
        <ul className="list">
-        {items.map(item=> <List key={item.id} item={item} onDeleteItem={onDeleteItem} />)}
+        {items.map(item=> <List key={item.id} item={item} onDeleteItem={onDeleteItem} onPackedItem={onPackedItem}/>)}
         {/* {initialItems.map(item=> console.log(item))} */}
        </ul>
     
   )
 }
 
-function List({item, onDeleteItem}){ //we simply accepting a an item object inside an object so we simply  destructured here in the bracket notation
+function List({item, onDeleteItem, onPackedItem}){ //we simply accepting a an item object inside an object so we simply  destructured here in the bracket notation
   const{id,description,quantity,packed}=item; //we further destructured it so we can simply use values cleanly.
-  
+  function handlePackedItem(id){
+  onPackedItem(id);
+  }
   return(
-  <li   >
-      <button onClick={()=>onDeleteItem(item.id)}>❌</button>
-      <span style={packed?{textDecoration: "line-through"}:{}}>{quantity} <strong>{description}</strong></span>
+  <li key={id}  >
+      <button onClick={()=>onDeleteItem(id)}>❌</button>
+      <span style={packed?{}:{textDecoration: "line-through"}}>{quantity} <strong>{description}</strong></span>
        
-      <input type="checkbox" name="check" id={id} />
+      <input value={item.packed} onChange={()=>handlePackedItem(id)} type="checkbox" name="check" id={id} />
   </li>
 )
 }
