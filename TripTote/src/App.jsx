@@ -15,6 +15,9 @@ const initialItems = [
 function App(){
   const [items, setItems]=useState(initialItems);
 
+  const noOfItems=items.length;
+  const packedItems=items.filter((item)=>item.packed==true).length;
+
   function handleItems(newItem) {
     setItems((items)=>[...items,newItem])
   }
@@ -24,14 +27,15 @@ function App(){
   function handlePackedItem(id){
    setItems((items)=>items.map((item)=>item.id==id?{...item,packed: !item.packed}:item));
   }
+  // console.log(items.length);
  
  return (
- <>
+ <div className='app'>
            <Logo/>
           <Form onAddItem={handleItems}/>
           <PackingList items={items} onDeleteItem={handleDeleteItem} onPackedItem={handlePackedItem}/>
-          <Stats items={items} />
- </>
+          <Stats noOfItems={noOfItems} packedItems={packedItems} />
+ </div>
         
  )
 }
@@ -49,7 +53,7 @@ function Form({onAddItem}) {
   
   function handleSubmit(e) {
     e.preventDefault();
-
+   if(!description) return;
     const newItem={
      id:new Date().getMilliseconds(),
      description,
@@ -57,7 +61,8 @@ function Form({onAddItem}) {
      packed:false
     }
     onAddItem(newItem);
-    // console.log(newItem);
+     setDescription("");
+     setQuantity(1);
   }
 
   return (
@@ -87,11 +92,12 @@ function Form({onAddItem}) {
 function PackingList({items,onDeleteItem,onPackedItem}){
   
   return(
-  
-       <ul className="list">
-        {items.map(item=> <List key={item.id} item={item} onDeleteItem={onDeleteItem} onPackedItem={onPackedItem}/>)}
-        {/* {initialItems.map(item=> console.log(item))} */}
-       </ul>
+        <div className="list">
+          <ul >
+             {items.map(item=> <List key={item.id} item={item} onDeleteItem={onDeleteItem} onPackedItem={onPackedItem}/>)}
+            
+          </ul>
+        </div>
     
   )
 }
@@ -102,23 +108,26 @@ function List({item, onDeleteItem, onPackedItem}){ //we simply accepting a an it
   onPackedItem(id);
   }
   return(
-  <li key={id}  >
-      <button onClick={()=>onDeleteItem(id)}>❌</button>
-      <span style={packed?{textDecoration: "line-through"}:{}}>{quantity} <strong>{description}</strong></span>
-       
+  <li key={id}>
       <input checked={packed} onChange={()=>handlePackedItem(id)} type="checkbox"   />
+      <span style={packed?{textDecoration: "line-through"}:{}}>{quantity} <strong>{description}</strong></span>
+      <button onClick={()=>onDeleteItem(id)}>❌</button>
+       
   </li>
 )
 }
-function Stats(){
-  // console.log(items.id);
-  // const [noOfItems, setNoOfItems]=useState(0)
-  // const [packedItems, setPackedItems]=useState(0);
-  // setNoOfItems(items.length+1);
-  // setPackedItems((items)=>console.log(items) );
+function Stats({noOfItems,packedItems}){
+  if(!noOfItems){
+    return(
+      <footer className='stats'>
+      {`Start Adding Items to your packing list`}
+    </footer>
+    )
+  }
   return(
-    <footer>
-      {`you have  items and You already packed  `}
+    <footer className='stats'>
+      
+      {`you have ${noOfItems}  items and You already packed ${packedItems} `}
     </footer>
   )
 }
