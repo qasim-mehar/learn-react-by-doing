@@ -45,7 +45,7 @@ function AccordionItems({num, title,text}){
       <p className='number'>{num}</p>
       <p className='title'>{title}</p>
       <p className='icon'>{isOpen?"-":"+"}</p>
-      {isOpen? <div key={num} className='content-box'>{text}</div>: ""}
+      {isOpen && <div key={num} className='content-box'>{text}</div>}
     </div>
   )
 }
