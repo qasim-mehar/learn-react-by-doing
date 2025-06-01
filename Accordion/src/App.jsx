@@ -37,5 +37,17 @@ function Accordion({faqs}){
      </div>
   )
 }
+function AccordionItems({num, title,text}){
+  const [isOpen, setIsOpen]=useState([false]);
+
+  return(
+    <div  onClick={()=>setIsOpen(!isOpen)} key={num} className='item'>
+      <p className='number'>{num}</p>
+      <p className='title'>{title}</p>
+      <p className='icon'>{isOpen?"-":"+"}</p>
+      {isOpen? <div key={num} className='content-box'>{text}</div>: ""}
+    </div>
+  )
+}
 
 export default App
