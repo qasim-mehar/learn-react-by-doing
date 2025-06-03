@@ -31,17 +31,19 @@ function App() {
   )
 }
 function Accordion({faqs}){
+  const [currentOpen, setCurrentOpen]=useState(null);
   return(
     <div className="accordion">
-    {faqs.map((item,i)=><AccordionItems num={i>9 ?i+1: `0${i}` } title={item.title} text={item.text}/>)}
+    {faqs.map((item,i)=><AccordionItems currentOpen={currentOpen} setCurrentOpen={setCurrentOpen} num={i>9 ?i+1: `0${i}` } title={item.title} text={item.text}/>)}
      </div>
   )
 }
-function AccordionItems({num, title,text}){
-  const [isOpen, setIsOpen]=useState([false]);
-
+function AccordionItems({currentOpen,setCurrentOpen,num, title,text}){
+  // const [isOpen, setIsOpen]=useState([false]);
+  const isOpen=num==currentOpen;
+   
   return(
-    <div  onClick={()=>setIsOpen(!isOpen)} key={num} className={`item ${isOpen && "open"}`}>
+    <div  onClick={()=>setCurrentOpen(num)} key={num} className={`item ${isOpen && "open"}`}>
       <p className='number'>{num}</p>
       <p className='title'>{title}</p>
       <p className='icon'>{isOpen?"-":"+"}</p>
