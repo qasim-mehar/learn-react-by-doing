@@ -31,18 +31,20 @@ function App() {
        <div className={`${step >= 2 ?"active":""}`}>2</div>
        <div className={`${step >= 3 ?"active":""}`}>3</div>
       </div>
+
       <p className="message">
          Step {step} : {messages[step-1]}
       </p>
+
       <div className="buttons">
-      <button style={{backgroundColor:"#7950f2", color:"#fff"}} 
-      onClick={stepPrevious}>
-              previous
-      </button>
-      <button style={{backgroundColor:"#7950f2", color:"#fff"}}
-      onClick={stepNext}>
-              next
-      </button>
+        <Button bgColor={"#7950f2"} color={"#fff"} onClick={stepPrevious}>
+          previous 👈
+          </Button>
+      
+        <Button bgColor={"#7950f2"} color={"#fff"} onClick={stepNext}>
+          next 👉
+        </Button>
+    
 
       </div>
     </div>
@@ -50,5 +52,13 @@ function App() {
     </>
   )
   
+}
+
+function Button({bgColor, textColor, onClick} ){
+  return(
+    <button style={{backgroundColor: bgColor, color:textColor}} onClick={onClick} >
+       
+    </button>
+  )
 }
 export default App
