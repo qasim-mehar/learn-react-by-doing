@@ -41,7 +41,7 @@ function AccordionItems({num, title,text}){
   const [isOpen, setIsOpen]=useState([false]);
 
   return(
-    <div  onClick={()=>setIsOpen(!isOpen)} key={num} className='item'>
+    <div  onClick={()=>setIsOpen(!isOpen)} key={num} className={`item ${isOpen && "open"}`}>
       <p className='number'>{num}</p>
       <p className='title'>{title}</p>
       <p className='icon'>{isOpen?"-":"+"}</p>
