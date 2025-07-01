@@ -19,7 +19,7 @@ function App() {
      <br />
      <BillInvoice netBill={netBill} netTip={netTip}/>
      <br />
-    
+     <ResetBtn handleBill={setNetBill} handleUserTip={setUserTip} handleFriendTip={setFriendTip}/>
    </>
    )
   
@@ -53,5 +53,15 @@ function BillInvoice({netBill, netTip}){
     netBill? <h2>{`Your total bill is ${netBill}$ (${netBill} $ +  ${netTip} $ Tip)`}</h2> : <p>No bill so far</p>
   )
 }
+function ResetBtn({handleBill, handleUserTip, handleFriendTip}){
 
+  function handleResetBtn(){
+  handleBill(" ")
+  handleFriendTip( " ")
+  handleUserTip(" ")
+  }
+  return(
+    <button onClick={handleResetBtn}>Reset</button>
+  )
+}
 export default App
