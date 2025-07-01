@@ -6,26 +6,30 @@ function App() {
   const [netBill, setNetBill] = useState(" ");
   const [userTip, setUserTip] = useState(" ");
   const [friendTip, setFriendTip] = useState(" ");
-  let netTip=(userTip+friendTip)/2;
+
+  const netTip=((userTip+friendTip)/2/100)*netBill;
+
    return(
    <>
-     <BillField handleBill={setNetBill}/>
+     <BillField handleBill={setNetBill} netBill={netBill}/>
      <br />
      <Tip handleTip={setUserTip}>How much did you like the service? </Tip>
      <br />
      <Tip handleTip={setFriendTip}>How much did Your friend like the service? </Tip>
      <br />
      <BillInvoice netBill={netBill} netTip={netTip}/>
+     <br />
+    
    </>
    )
   
 }
-function BillField({handleBill}){
+function BillField({handleBill, netBill}){
 
   return(
   <>
      <label For="Bill">Enter Your total bill </label>
-      <input onChange={e=>handleBill(e.target.value)} type="number" />
+      <input value={netBill} onChange={e=>handleBill(e.target.value)} type="number" />
   </>
     
   )
@@ -49,4 +53,5 @@ function BillInvoice({netBill, netTip}){
     netBill? <h2>{`Your total bill is ${netBill}$ (${netBill} $ +  ${netTip} $ Tip)`}</h2> : <p>No bill so far</p>
   )
 }
+
 export default App
