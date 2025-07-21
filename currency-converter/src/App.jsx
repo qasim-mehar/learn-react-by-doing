@@ -16,6 +16,14 @@ function App() {
   function handleToConvertType(e){
     setToConvertInCurrencyType(e.target.value);
   }
+  useEffect (function(){
+    
+    async function getConverterValue() {
+      const res=await fetch(`https://api.frankfurter.app/latest?amount=${currency}&from=${baseCurrencyType}&to=${toConvertInCurrencyType}`);
+      const data= await res.json();
+    }
+    getConverterValue();
+  },[currency,baseCurrencyType,toConvertInCurrencyType])
   return (
     <div>
       <input value={currency} onChange={handelBaseValue} type="text" />
