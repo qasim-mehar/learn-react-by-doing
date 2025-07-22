@@ -27,9 +27,9 @@ function TextExpander({
    <p>
       <span>
           {isExpanded? children:`${children.split(' ')
-          .splice(0 , collapseNumWords).join(' ')}...`}
+          .splice(0 , collapseNumWords).join(' ')}... `}
       </span>
-      <br />
+     
       <button onClick={()=>setIsExpanded(exp=>!exp)}>
         {isExpanded?collapseBtnText:expandBtnText}
       </button>
