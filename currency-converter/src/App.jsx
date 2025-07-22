@@ -35,10 +35,9 @@ function App() {
       }
 
       const data= await res.json();
-      const obj= data?.rates;
-      const firstKey = Object?.keys(obj)[0];
-      const firstValue = obj[firstKey];
-      setConvertedValue(firstValue);}
+      //Dynamically destructure api json data
+      const converterAmount= data?.rates[toConvertInCurrencyType];
+      setConvertedValue(converterAmount);}
       catch(err){
         console.log(err.message);
         if(err.name!=="AbortError"){
@@ -49,7 +48,6 @@ function App() {
     getConverterValue();
     return()=>{
        controller.abort();
-      
       setErrorMessage(""); 
     }
   },[baseCurrencyType,currency,toConvertInCurrencyType])
