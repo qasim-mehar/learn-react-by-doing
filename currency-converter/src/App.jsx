@@ -19,7 +19,7 @@ function App() {
     setToConvertInCurrencyType(e.target.value);
   }
   useEffect (function(){
-    
+    const controller= new AbortController();
     async function getConverterValue() {
       setErrorMessage('');
       
@@ -28,7 +28,7 @@ function App() {
        throw new Error("Bad pair, Enter two different value");
        
       }
-        const res=await fetch(`https://api.frankfurter.app/latest?amount=${currency}&from=${baseCurrencyType}&to=${toConvertInCurrencyType}`);
+        const res=await fetch(`https://api.frankfurter.app/latest?amount=${currency}&from=${baseCurrencyType}&to=${toConvertInCurrencyType}`, {signal:controller.signal});
       console.log(res);
       if(!res.ok){
         throw new Error("Something went wrong");
@@ -41,12 +41,15 @@ function App() {
       setConvertedValue(firstValue);}
       catch(err){
         console.log(err.message);
-        setErrorMessage(err.message);
+        if(err.name!=="AbortError"){
+          setErrorMessage(err.message);
+        }
       }
     }
     getConverterValue();
     return()=>{
-      setConvertedValue(0);
+       controller.abort();
+      
       setErrorMessage(""); 
     }
   },[baseCurrencyType,currency,toConvertInCurrencyType])
