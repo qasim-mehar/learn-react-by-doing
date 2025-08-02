@@ -29,6 +29,7 @@ const initialState = {
 const opening_balance=500;
 const diposite_amount=150;
 const withdrawal_amount=50;
+const loan_amount=5000;
 function reducer(state,action){
  switch (action.type) {
   case "openAccount":
@@ -46,6 +47,13 @@ function reducer(state,action){
     return{
       ...state,
       balance:state.balance>=withdrawal_amount?state.balance-withdrawal_amount:state.balance,
+    }
+    case "loan":
+    return{
+      ...state,
+      loan:state.loan?state.loan:state.loan+loan_amount,
+      balance:state.loan?state.balance:state.balance+loan_amount
+
     }
   default:
     break;
@@ -78,7 +86,7 @@ export default function App() {
         </button>
       </p>
       <p>
-        <button onClick={() => {}} disabled={false}>
+        <button onClick={() => {dispatch({type:"loan"})}} disabled={false}>
           Request a loan of 5000
         </button>
       </p>
