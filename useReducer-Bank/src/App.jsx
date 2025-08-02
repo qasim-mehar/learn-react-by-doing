@@ -27,6 +27,7 @@ const initialState = {
 };
 
 const opening_balance=500;
+const diposite_amount=150;
 function reducer(state,action){
  switch (action.type) {
   case "openAccount":
@@ -34,6 +35,11 @@ function reducer(state,action){
       ...state,
       balance:opening_balance,
       isActive:true,
+    }
+     case "diposite":
+    return {
+      ...state,
+      balance:state.balance+diposite_amount,
     }
   default:
     break;
@@ -56,7 +62,7 @@ export default function App() {
      {isActive&&
      <div>
       <p>
-        <button onClick={() => {}} disabled={false}>
+        <button onClick={() => {dispatch({type:"diposite"})}} disabled={false}>
           Deposit 150
         </button>
       </p>
