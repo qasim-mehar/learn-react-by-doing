@@ -55,6 +55,12 @@ function reducer(state,action){
       balance:state.loan?state.balance:state.balance+loan_amount
 
     }
+    case "payLoan":
+      return{
+        ...state,
+        loan:0,
+        balance:state.loan?state.balance-state.loan: state.balance,
+      }
     case "closeAccount":
     {
       const isClosable=state.loan==0 && state.balance>0;
@@ -77,7 +83,7 @@ export default function App() {
       <p>Loan: {loan}</p>   
 
       <p>
-        <button onClick={() => {dispatch({type:"openAccount"})}} disabled={false}>
+        <button onClick={() => {dispatch({type:"openAccount"})}} disabled={isActive}>
           Open account
         </button>
       </p>
@@ -99,7 +105,7 @@ export default function App() {
         </button>
       </p>
       <p>
-        <button onClick={() => {}} disabled={false}>
+        <button onClick={() => {dispatch({type:"payLoan"})}} disabled={false}>
           Pay loan
         </button>
       </p>
