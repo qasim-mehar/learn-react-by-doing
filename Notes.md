@@ -38,5 +38,56 @@ is a hook to define a default state.
  ### Children prop:
  it the content in between opening and closing tag of element in parent component which is automatically onherited to child component. we use a predefined keyword "children"
  <element> Child prob content</element>
- ### Props type:
  
+ useReducer hook:
+ it just like a useState hook but for more complex  values to handle like objects instead of a single value.
+ when and why to use:
+ - when there are a lots of state variables and state updates spread across all over the the componenet and eventhandelers.
+ - when a multiple state needs to be update at the same time. like on start the game btn set the score to zero, number of lives and reset timer
+ - when updating one piece of state is depend of other multiple piece of state.
+ why name reducer? bec it just accumulate all the action in a single state update just like array.reduce()
+
+
+const withdrawal_amount=50;
+const diposite_amount=150;
+const loan_amount=5000;
+function reducer(state,action){
+ switch (action.type) {
+  case "openAccount":
+    return{
+      ...state,
+      balance:500,
+      isActive:true,
+    }
+  case "diposite":
+    return {
+      ...state,
+      balance:state.balance+diposite_amount,
+    }
+  case "withdraw":
+    return{
+      ...state,
+      balance:state.balance>=withdrawal_amount?state.balance-withdrawal_amount:state.balance,
+    }
+  case "loan":
+    return{
+      ...state,
+      loan:state.loan?state.loan:state.loan+loan_amount,
+      balance:state.loan?state.balance:state.balance+loan_amount
+
+    }
+  case "closeAccount":
+    {
+      const isClosable=state.loan==0 && state.balance>0;
+    return{
+      ...state,
+      isActive:!isClosable,
+      balance:isClosable ? 0 : state.balance,
+    }}
+    
+    break;
+ 
+  default:
+    break;
+ }
+}
