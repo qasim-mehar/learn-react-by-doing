@@ -60,8 +60,9 @@ function cutomerReducer(state=CustomertInitialState, action){
  }
 }
 
+const rootReducer=combineReducers({
+    account:accountReducer,
+    customer:cutomerReducer
+});
 
-
-
-
-
+const store=createStore(rootReducer);
