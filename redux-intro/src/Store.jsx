@@ -66,3 +66,24 @@ const rootReducer=combineReducers({
 });
 
 const store=createStore(rootReducer);
+
+function deposite(amount){
+    store.dispatch({type:"account/deposite", payload:{amount}})
+}
+
+function withdraw(amount){
+    store.dispatch({type:"account/withdraw", payload:{amount}})
+}
+
+function requestLoan(amount, purpose){
+    store.dispatch({type:"requestLoan", payload:{amount,purpose}})
+}
+
+function payLoad(){
+  store.dispatch({type:"payLoan"});
+}
+
+
+
+
+
