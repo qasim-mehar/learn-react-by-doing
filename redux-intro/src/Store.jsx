@@ -48,7 +48,8 @@ function cutomerReducer(state=CustomertInitialState, action){
         return{
             ...state,
             fullName:action.payload.fullName,
-            nationalID:action.payload.nationalID
+            nationalID:action.payload.nationalID,
+            creationTime:action.payload.creationTime,
         }    
     case "customer/updateFullName":
         return{
@@ -84,7 +85,7 @@ function payLoad(){
 }
 
 function createCustomer(fullName, nationalID){
-store.dispatch({type:"customer/createCustomer", payLoad:{creationTime:new Date().toISOString(), fullName:fullName, nationalID:nationalID}})
+store.dispatch({type:"customer/createCustomer", payload:{creationTime:new Date().toISOString(), fullName:fullName, nationalID:nationalID}})
 }
 
 function updateFullName(fullName){
@@ -92,5 +93,5 @@ function updateFullName(fullName){
 }
 
 
-
-
+createCustomer("Qasim", "35401");
+console.log(store.getState());
