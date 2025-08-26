@@ -83,6 +83,13 @@ function payLoad(){
   store.dispatch({type:"payLoan"});
 }
 
+function createCustomer(fullName, nationalID){
+store.dispatch({type:"customer/createCustomer", payLoad:{creationTime:new Date().toISOString(), fullName:fullName, nationalID:nationalID}})
+}
+
+function updateFullName(fullName){
+    store.dispatch({type:"custome/updateFullName", payload:{fullName:fullName}})
+}
 
 
 
