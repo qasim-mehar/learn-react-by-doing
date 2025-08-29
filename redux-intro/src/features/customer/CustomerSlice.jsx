@@ -17,7 +17,8 @@ const customerSlice=createSlice({
         return{
           payload:{
             fullName,
-            nationalID
+            nationalID,
+            creationTime: new Date().toISOString();
           }
         }
       },
